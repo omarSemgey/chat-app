@@ -1,0 +1,57 @@
+@media (max-width: 993px) {
+    .chat{
+
+        img{
+
+            &.arrow{
+                display: block !important;
+            }
+        }
+    }
+    .hidden{
+        display: none;
+    }
+    .login{
+        gap: 50PX;
+    }
+}
+
+@media (max-width: 787px) {
+
+    .login{
+        gap: 15px;
+    }
+
+}
+
+@media (max-width: 580px) {
+
+    .container{
+
+        ::-webkit-scrollbar{
+            width: 6px;
+            background-color: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background-color: black;
+            border-radius: 10px;
+        }
+
+    }
+    .login{
+        overflow-y: scroll;
+
+        flex-direction: column;
+        gap: 40px;
+        padding: 50px 0;
+
+        .separator{
+            height: 0;
+            border: 1px solid #dddddd35;
+            width: 80%;
+        }
+
+    }
+
+}
