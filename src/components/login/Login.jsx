@@ -5,8 +5,11 @@ import { auth, db } from '../../lib/firebase'
 import { upload } from '../../lib/upload'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, query, doc, getDocs, setDoc, where } from 'firebase/firestore'
+import { useUserStore } from '../../lib/UserStore'
 
 export default function Login(){
+    const { currentUser } = useUserStore()
+
     const [avatar,setAvatar] = useState({
         file:null,
         url:''
@@ -28,14 +31,17 @@ export default function Login(){
     async function handleLogin(e){
         e.preventDefault();
 
+        setLoading(true);
+
         const formData = new FormData(e.target);
         const {email, password} = Object.fromEntries(formData);
 
         //check for inputs
 
-        if (!email || !password) return toast.warn("Please enter all inputs!");
-
-        setLoading(true);
+        if (!email || !password){
+            setLoading(false);
+            return toast.warn("Please enter all inputs!");
+        } 
 
         try{
 
@@ -48,8 +54,6 @@ export default function Login(){
         }finally{
             setLoading(false);
         }
-
-
     }
 
     async function handleRegister(e){
@@ -75,15 +79,18 @@ export default function Login(){
 
         //check for unique name
 
+        setLoading(true);
+
         const usersRef = collection(db, "users");
 
         const q = query(usersRef, where("username", "==", username));
 
         const querySnapshot = await getDocs(q);
 
-        if (!querySnapshot.empty) return toast.warn("Username already taken");
-
-        setLoading(true);
+        if (!querySnapshot.empty){
+            setLoading(false)
+            return toast.warn("Username already taken");
+        } 
 
         try{
 
@@ -102,8 +109,6 @@ export default function Login(){
             await setDoc(doc(db, 'userchats', res.user.uid),{
             chats:[]
         });
-
-        await signInWithEmailAndPassword(auth,email,password);
 
         toast.success('User created successfully');
 

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { doc, getDoc } from 'firebase/firestore'
-import { db } from './firebase'
+import { db, requestForToken } from './firebase'
 
 export const useUserStore =
     create(set => ({
@@ -15,6 +15,7 @@ export const useUserStore =
 
             if(docSnap.exists()){
                 set({currentUser: docSnap.data(), isLoading: false})
+                // requestForToken(docSnap.data().token,docSnap.data().id)
             }else{
                 set({currentUser: null,isLoading: false})
             }

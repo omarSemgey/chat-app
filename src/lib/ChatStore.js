@@ -3,38 +3,59 @@ import { useUserStore } from "./userStore";
 
 export const useChatStore = create((set) => ({
     chatId: null,
+    chatType: null,
     user: null,
+    groupImg: null,
+    groupName: null,
     isCurrentUserBlocked: false,
     isReceiverBlocked: false,
-    changeChat: (chatId, user) => {
-    const currentUser = useUserStore.getState().currentUser;
+    changeChat: (chatId, chatType ,user, groupName = null, groupImg = null) => {
+        if(chatType == 'chat'){
 
-    // CHECK IF CURRENT USER IS BLOCKED
-    if (user.blocked.includes(currentUser.id)) {
-        return set({
-        chatId,
-        user: null,
-        isCurrentUserBlocked: true,
-        isReceiverBlocked: false,
-    });
-    }
+                const currentUser = useUserStore.getState().currentUser;
+                
+                // CHECK IF CURRENT USER IS BLOCKED
 
-    // CHECK IF RECEIVER IS BLOCKED
-    else if (currentUser.blocked.includes(user.id)) {
-        return set({
-        chatId,
-        user: user,
-        isCurrentUserBlocked: false,
-        isReceiverBlocked: true,
-    });
-    } else {
-        return set({
-        chatId,
-        user,
-        isCurrentUserBlocked: false,
-        isReceiverBlocked: false,
-    });
-    }
+            if (user.blocked.includes(currentUser.id)) {
+                return set({
+                chatId,
+                chatType,
+                user: null,
+                isCurrentUserBlocked: true,
+                isReceiverBlocked: false,
+            });
+            }
+
+            // CHECK IF RECEIVER IS BLOCKED
+
+            else if (currentUser.blocked.includes(user.id)) {
+                return set({
+                chatId,
+                chatType,
+                user: user,
+                isCurrentUserBlocked: false,
+                isReceiverBlocked: true,
+            });
+            } else {
+                return set({
+                chatId,
+                chatType,
+                user,
+                isCurrentUserBlocked: false,
+                isReceiverBlocked: false,
+            });
+            }
+        }else{
+            set({
+                chatId,
+                chatType,
+                groupName,
+                groupImg,
+                user,
+                isCurrentUserBlocked: false,
+                isReceiverBlocked: false,
+            });
+        }
 },
 
     changeBlock: () => {
@@ -44,6 +65,9 @@ export const useChatStore = create((set) => ({
     resetChat: () => {
     set({
         chatId: null,
+        chatType: null,
+        groupName: null,
+        groupMembers: null,
         user: null,
         isCurrentUserBlocked: false,
         isReceiverBlocked: false,

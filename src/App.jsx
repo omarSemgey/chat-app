@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase"
 import { useUserStore } from "./lib/UserStore";
 import { useChatStore } from "./lib/ChatStore";
+// import MessageNotification from "./components/notification/MessageNotification";
 
 const App = () => {
   const {currentUser, isLoading, fetchUserInfo} = useUserStore();
@@ -25,6 +26,7 @@ const App = () => {
 
   if(isLoading) return <Loading></Loading>
 
+
   return (
     <div className="container">
       {currentUser ? (
@@ -35,6 +37,7 @@ const App = () => {
           <Chat/>
           </>
           }
+          {/* <MessageNotification/> */}
         </>
         ) :
         <Login></Login>

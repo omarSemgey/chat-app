@@ -3,6 +3,7 @@
     border-left: 1px solid #dddddd35;
     border-right:  1px solid #dddddd35;
     height: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
 
@@ -35,7 +36,6 @@
             object-fit: cover;
 
             &.arrow{
-                display: none;
                 width: 20px;
                 height: 20px;
                 cursor: pointer;
@@ -123,10 +123,20 @@
         flex-direction: column;
         gap: 20px;
 
+        .text-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+
         .message{
             max-width: 70%;
             display: flex;
             gap: 20px;
+            align-self: flex-start;
 
             &.own{
                 align-self: flex-end;
@@ -134,6 +144,7 @@
                 .texts{
                     p{
                         background-color: #5183fe;
+                        overflow-wrap: anywhere;
                     }
                 }
             }
@@ -143,6 +154,7 @@
                 height: 30px;
                 border-radius: 50%;
                 object-fit: cover;
+                margin-top: 5px;
             }
 
             .texts{
@@ -156,6 +168,11 @@
                     height: 300px;
                     border-radius: 4px;
                     object-fit: cover;
+                    margin-top: 0;
+                }
+
+                .sender{
+                    padding: 5px;
                 }
 
                 p{
@@ -164,9 +181,32 @@
                     border-radius: 10px;
                 }
 
-                span{
-                    font-size: 13px;
+                .info{
+                    font-size: 15px;
+                    display: flex;
+                    justify-content: flex-end;
+                    margin: 0 10px;
+                    align-items: center;
+                    gap: 15px;
+
+                    .seen{
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        /* margin-left: 10px; */
+                    }
+
+                    .delete{
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        /* margin-left: 10px; */
+                        cursor: pointer;
+                    }
                 }
+
             }
         }
     }

@@ -1,13 +1,4 @@
 @media (max-width: 993px) {
-    .chat{
-
-        img{
-
-            &.arrow{
-                display: block !important;
-            }
-        }
-    }
     .hidden{
         display: none;
     }
@@ -39,6 +30,7 @@
         }
 
     }
+
     .login{
         overflow-y: scroll;
 
@@ -53,5 +45,36 @@
         }
 
     }
+
+    .chat{
+        .top,
+        .bottom{
+            padding: 10px;
+        }
+
+        .center{
+            padding: 15px;
+        }
+
+        .bottom{
+            gap: 10px;
+
+            input{
+                padding: 15px;
+                font-size: 13px;
+            }
+
+            .send-button{
+                padding: 10px 15px;
+                font-size: 10px;
+            }
+
+            .emoji{
+                .picker{
+                    right: -70px;
+                }
+            }
+        }
+    } 
 
 }
